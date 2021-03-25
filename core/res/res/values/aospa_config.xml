@@ -199,6 +199,6 @@
     <string name="config_regularFontFamily" translatable="false">sans-serif-regular</string>
 
     <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
-    <bool name="config_intrusiveBatteryLed">@bool/config_intrusiveNotificationLed</bool>
+    <bool name="config_intrusiveBatteryLed">false</bool>
 
 </resources>
