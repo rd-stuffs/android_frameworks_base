@@ -152,7 +152,7 @@ constructor(
         )
 
         if (
-            flags.isEnabled(Flags.WM_ENABLE_PARTIAL_SCREEN_SHARING) &&
+            flags != null && flags.isEnabled(Flags.WM_ENABLE_PARTIAL_SCREEN_SHARING) &&
                 !state.hasUserApprovedScreenRecording
         ) {
             mainExecutor.execute {
