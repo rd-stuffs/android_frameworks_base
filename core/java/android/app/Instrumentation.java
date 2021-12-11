@@ -62,6 +62,7 @@ import android.view.Window;
 import android.view.WindowManagerGlobal;
 
 import com.android.internal.content.ReferrerIntent;
+import com.android.internal.util.GamesProps;
 import com.android.internal.util.PropImitationHooks;
 
 import java.io.File;
@@ -1353,6 +1354,7 @@ public class Instrumentation {
         Application app = getFactory(context.getPackageName())
                 .instantiateApplication(cl, className);
         app.attach(context);
+        GamesProps.setProps(context);
         PropImitationHooks.setProps(context);
         return app;
     }
@@ -1371,6 +1373,7 @@ public class Instrumentation {
             ClassNotFoundException {
         Application app = (Application)clazz.newInstance();
         app.attach(context);
+        GamesProps.setProps(context);
         PropImitationHooks.setProps(context);
         return app;
     }
