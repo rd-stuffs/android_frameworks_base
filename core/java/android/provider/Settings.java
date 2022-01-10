@@ -5671,6 +5671,12 @@ public final class Settings {
         public static final String NOTIFICATION_SOUND_VIB_SCREEN_ON = "notification_sound_vib_screen_on";
 
         /**
+         * Whether to show the ripple animation on fingerprint unlock
+         * @hide
+         */
+        public static final String AUTH_RIPPLE_ENABLED = "auth_ripple_enabled";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
