@@ -105,5 +105,6 @@ public class SystemSettings {
         Settings.System.SCREEN_FLASH_NOTIFICATION_COLOR,
         Settings.System.RINGTONE_VIBRATION_PATTERN,
         Settings.System.NOTIFICATION_VIBRATION_PATTERN,
+        Settings.System.ENABLE_FLOATING_ROTATION_BUTTON,
     };
 }
