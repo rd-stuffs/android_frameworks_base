@@ -61,7 +61,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -313,28 +312,6 @@ public class ExternalStorageProvider extends FileSystemProvider {
 
             final String path = getPathFromDocId(docId);
 
-            // Block the root of the storage
-            if (path.isEmpty()) {
-                return true;
-            }
-
-            // Block Download folder from tree
-            if (TextUtils.equals(Environment.DIRECTORY_DOWNLOADS.toLowerCase(Locale.ROOT),
-                    path.toLowerCase(Locale.ROOT))) {
-                return true;
-            }
-
-            // Block /Android
-            if (TextUtils.equals(Environment.DIRECTORY_ANDROID.toLowerCase(Locale.ROOT),
-                    path.toLowerCase(Locale.ROOT))) {
-                return true;
-            }
-
-            // Block /Android/data, /Android/obb, /Android/sandbox and sub dirs
-            if (shouldHide(dir)) {
-                return true;
-            }
-
             return false;
         } catch (IOException e) {
             throw new IllegalArgumentException(
@@ -427,21 +404,19 @@ public class ExternalStorageProvider extends FileSystemProvider {
     }
 
     @VisibleForTesting
-    static String getPathFromDocId(String docId) throws IOException {
+    static String getPathFromDocId(String docId) {
         final int splitIndex = docId.indexOf(':', 1);
-        final String docIdPath = docId.substring(splitIndex + 1);
-        // Get CanonicalPath and remove the first "/"
-        final String canonicalPath = new File(docIdPath).getCanonicalPath().substring(1);
+        final String path = docId.substring(splitIndex + 1);
 
-        if (canonicalPath.isEmpty()) {
-            return canonicalPath;
+        if (path.isEmpty()) {
+            return path;
         }
 
         // remove trailing "/"
-        if (canonicalPath.charAt(canonicalPath.length() - 1) == '/') {
-            return canonicalPath.substring(0, canonicalPath.length() - 1);
+        if (path.charAt(path.length() - 1) == '/') {
+            return path.substring(0, path.length() - 1);
         } else {
-            return canonicalPath;
+            return path;
         }
     }
 
@@ -472,12 +447,7 @@ public class ExternalStorageProvider extends FileSystemProvider {
         if (!target.exists()) {
             target.mkdirs();
         }
-        try {
-            target = new File(target, path).getCanonicalFile();
-        } catch (IOException e) {
-            throw new FileNotFoundException("Failed to canonicalize path " + path);
-        }
-
+        target = new File(target, path);
         if (mustExist && !target.exists()) {
             throw new FileNotFoundException("Missing file for " + docId + " at " + target);
         }
