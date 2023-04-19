@@ -161,8 +161,6 @@ cc_defaults {
     cflags: [
         "-fno-omit-frame-pointer",
         "-O3",
-        "-marm",
-        "-mapcs",
     ],
 }
 
