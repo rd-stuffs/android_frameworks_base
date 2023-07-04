@@ -64,10 +64,12 @@ import android.graphics.Rect;
 import android.graphics.Region;
 import android.hardware.biometrics.SensorLocationInternal;
 import android.hardware.fingerprint.FingerprintSensorPropertiesInternal;
+import android.hardware.power.Boost;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.Process;
+import android.os.PowerManagerInternal;
 import android.os.Trace;
 import android.os.UserManager;
 import android.os.VibrationEffect;
@@ -100,6 +102,8 @@ import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
+
+import com.android.server.LocalServices;
 
 import androidx.constraintlayout.widget.ConstraintSet;
 
@@ -616,6 +620,7 @@ public final class NotificationPanelViewController implements Dumpable {
     private int mLockscreenToDreamingTransitionTranslationY;
     private int mGoneToDreamingTransitionTranslationY;
     private int mLockscreenToOccludedTransitionTranslationY;
+    private final PowerManagerInternal mLocalPowerManager;
 
     private boolean mBlockedGesturalNavigation = false;
 
@@ -965,6 +970,7 @@ public final class NotificationPanelViewController implements Dumpable {
         mAlternateBouncerInteractor = alternateBouncerInteractor;
         dumpManager.registerDumpable(this);
         mPerf = new BoostFramework();
+        mLocalPowerManager = LocalServices.getService(PowerManagerInternal.class);
     }
 
     private void unlockAnimationFinished() {
@@ -2035,6 +2041,9 @@ public final class NotificationPanelViewController implements Dumpable {
         if (mPerf != null) {
             String currentPackage = mView.getContext().getPackageName();
             mPerf.perfHint(BoostFramework.VENDOR_HINT_SCROLL_BOOST, currentPackage, -1, BoostFramework.Scroll.PANEL_VIEW);
+        }
+        if (mLocalPowerManager != null) {
+            mLocalPowerManager.setPowerBoost(Boost.DISPLAY_UPDATE_IMMINENT, 200);
         }
         animator.addListener(new AnimatorListenerAdapter() {
             private boolean mCancelled;
