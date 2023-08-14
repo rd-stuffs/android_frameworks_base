@@ -96,7 +96,6 @@ public class CarrierTextManager {
             };
     private FiveGServiceClient mFiveGServiceClient;
     private CarrierNameCustomization mCarrierNameCustomization;
-    private boolean mShowCustomizeName;
     private TelephonyDisplayInfo mTelephonyDisplayInfo;
     @VisibleForTesting
     protected final KeyguardUpdateMonitorCallback mCallback = new KeyguardUpdateMonitorCallback() {
@@ -192,8 +191,7 @@ public class CarrierTextManager {
             @Main Executor mainExecutor,
             @Background Executor bgExecutor,
             KeyguardUpdateMonitor keyguardUpdateMonitor,
-            CarrierNameCustomization carrierNameCustomization,
-            boolean showCustomizeName) {
+            CarrierNameCustomization carrierNameCustomization) {
         mContext = context;
         mIsEmergencyCallCapable = telephonyManager.isVoiceCapable();
 
@@ -220,7 +218,6 @@ public class CarrierTextManager {
             }
         });
         mCarrierNameCustomization = carrierNameCustomization;
-        mShowCustomizeName = showCustomizeName;
     }
 
     private TelephonyManager getTelephonyManager() {
@@ -326,7 +323,7 @@ public class CarrierTextManager {
         boolean allSimsMissing = true;
         boolean anySimReadyAndInService = false;
         boolean missingSimsWithSubs = false;
-        boolean showCustomizeName = mShowCustomizeName || getContext().getResources().getBoolean(
+        boolean showCustomizeName = getContext().getResources().getBoolean(
                 com.android.systemui.R.bool.config_show_customize_carrier_name);
         CharSequence displayText = null;
         List<SubscriptionInfo> subs = getSubscriptionInfo();
@@ -680,7 +677,6 @@ public class CarrierTextManager {
         private final KeyguardUpdateMonitor mKeyguardUpdateMonitor;
         private boolean mShowAirplaneMode;
         private boolean mShowMissingSim;
-        private boolean mShowCustomizeName;
         private CarrierNameCustomization mCarrierNameCustomization;
 
         @Inject
@@ -720,18 +716,12 @@ public class CarrierTextManager {
             return this;
         }
 
-        public Builder setShowCustomizeName(boolean showCustomizeName) {
-            mShowCustomizeName = showCustomizeName;
-            return this;
-        }
-
         /** Create a CarrierTextManager. */
         public CarrierTextManager build() {
             return new CarrierTextManager(
                     mContext, mSeparator, mShowAirplaneMode, mShowMissingSim, mWifiManager,
                     mTelephonyManager, mTelephonyListenerManager, mWakefulnessLifecycle,
-                    mMainExecutor, mBgExecutor, mKeyguardUpdateMonitor, mCarrierNameCustomization,
-                    mShowCustomizeName);
+                    mMainExecutor, mBgExecutor, mKeyguardUpdateMonitor, mCarrierNameCustomization);
         }
     }
     /**
@@ -799,18 +789,17 @@ public class CarrierTextManager {
                         names[j], com.android.systemui.R.array.origin_carrier_names,
                         com.android.systemui.R.array.locale_carrier_names);
                 if (!TextUtils.isEmpty(names[j])) {
-                    if (j == 0) {
-                        newCarrierName.append(names[j]);
-                        if (!TextUtils.isEmpty(networkClass) &&
-                                !names[j].endsWith(networkClass)) {
-                            newCarrierName.append(" ").append(networkClass);
-                        }
-                    } else { /* j == 1 */
-                        if (names[j].equalsIgnoreCase(names[j - 1])) {
-                            continue;
-                        }
-                        newCarrierName.append(mSeparator).append(names[j]);
+                    if (!TextUtils.isEmpty(networkClass)) {
+                        names[j] = new StringBuilder().append(names[j]).append(" ")
+                                .append(networkClass).toString();
                     }
+                    if (j > 0 && names[j].equals(names[j - 1])) {
+                        continue;
+                    }
+                    if (j > 0) {
+                        newCarrierName.append(mSeparator);
+                    }
+                    newCarrierName.append(names[j]);
                 }
             }
         }
