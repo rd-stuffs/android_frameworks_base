@@ -132,6 +132,7 @@ import android.os.Message;
 import android.os.Parcel;
 import android.os.ParcelableException;
 import android.os.PersistableBundle;
+import android.os.PowerManagerInternal;
 import android.os.Process;
 import android.os.ReconcileSdkDataArgs;
 import android.os.RemoteException;
@@ -196,6 +197,7 @@ import com.android.server.PackageWatchdog;
 import com.android.server.ServiceThread;
 import com.android.server.SystemConfig;
 import com.android.server.Watchdog;
+import com.android.server.am.ActivityManagerService.LocalService;
 import com.android.server.apphibernation.AppHibernationManagerInternal;
 import com.android.server.compat.CompatChange;
 import com.android.server.compat.PlatformCompat;
@@ -953,6 +955,7 @@ public class PackageManagerService implements PackageSender, TestUtilityService 
     private final SuspendPackageHelper mSuspendPackageHelper;
     private final DistractingPackageHelper mDistractingPackageHelper;
     private final StorageEventHelper mStorageEventHelper;
+    final PowerManagerInternal mPowerManagerInternal;
 
     /**
      * Invalidate the package info cache, which includes updating the cached computer.
@@ -1702,7 +1705,7 @@ public class PackageManagerService implements PackageSender, TestUtilityService 
         mSharedLibraries.setDeletePackageHelper(mDeletePackageHelper);
 
         mStorageEventHelper = testParams.storageEventHelper;
-
+        mPowerManagerInternal = null;
         registerObservers(false);
         invalidatePackageInfoCache();
     }
@@ -1856,6 +1859,7 @@ public class PackageManagerService implements PackageSender, TestUtilityService 
                 mRemovePackageHelper);
         mDistractingPackageHelper = new DistractingPackageHelper(this, mInjector, mBroadcastHelper,
                 mSuspendPackageHelper);
+        mPowerManagerInternal = LocalServices.getService(PowerManagerInternal.class);
 
         t.traceBegin("readListOfPackagesToBeDisabled");
         mInstallPackageHelper.readListOfPackagesToBeDisabled();
