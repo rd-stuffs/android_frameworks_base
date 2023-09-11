@@ -36,9 +36,9 @@ class PrivacyConfig @Inject constructor(
     @VisibleForTesting
     internal companion object {
         const val TAG = "PrivacyConfig"
-        private const val DEFAULT_MIC_CAMERA = true
+        private const val DEFAULT_MIC_CAMERA = false
         private const val DEFAULT_LOCATION = false
-        private const val DEFAULT_MEDIA_PROJECTION = true
+        private const val DEFAULT_MEDIA_PROJECTION = false
     }
 
     private val callbacks = mutableListOf<Callback>()
