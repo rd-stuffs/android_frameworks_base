@@ -16,14 +16,11 @@
 
 package com.android.systemui.privacy
 
-import android.provider.DeviceConfig
 import com.android.internal.annotations.VisibleForTesting
-import com.android.internal.config.sysui.SystemUiDeviceConfigFlags
 import com.android.systemui.Dumpable
 import com.android.systemui.dagger.SysUISingleton
 import com.android.systemui.dagger.qualifiers.Main
 import com.android.systemui.dump.DumpManager
-import com.android.systemui.util.DeviceConfigProxy
 import com.android.systemui.util.asIndenting
 import com.android.systemui.util.concurrency.DelayableExecutor
 import com.android.systemui.util.withIncreasedIndent
@@ -33,17 +30,12 @@ import javax.inject.Inject
 @SysUISingleton
 class PrivacyConfig @Inject constructor(
     @Main private val uiExecutor: DelayableExecutor,
-    private val deviceConfigProxy: DeviceConfigProxy,
     dumpManager: DumpManager
 ) : Dumpable {
 
     @VisibleForTesting
     internal companion object {
         const val TAG = "PrivacyConfig"
-        private const val MIC_CAMERA = SystemUiDeviceConfigFlags.PROPERTY_MIC_CAMERA_ENABLED
-        private const val LOCATION = SystemUiDeviceConfigFlags.PROPERTY_LOCATION_INDICATORS_ENABLED
-        private const val MEDIA_PROJECTION =
-                SystemUiDeviceConfigFlags.PROPERTY_MEDIA_PROJECTION_INDICATORS_ENABLED
         private const val DEFAULT_MIC_CAMERA = true
         private const val DEFAULT_LOCATION = false
         private const val DEFAULT_MEDIA_PROJECTION = true
@@ -58,51 +50,16 @@ class PrivacyConfig @Inject constructor(
     var mediaProjectionAvailable = isMediaProjectionEnabled()
         private set
 
-    private val devicePropertiesChangedListener =
-            DeviceConfig.OnPropertiesChangedListener { properties ->
-                if (DeviceConfig.NAMESPACE_PRIVACY == properties.namespace) {
-                    // Running on the ui executor so can iterate on callbacks
-                    if (properties.keyset.contains(MIC_CAMERA)) {
-                        micCameraAvailable = properties.getBoolean(MIC_CAMERA, DEFAULT_MIC_CAMERA)
-                        callbacks.forEach { it.onFlagMicCameraChanged(micCameraAvailable) }
-                    }
-
-                    if (properties.keyset.contains(LOCATION)) {
-                        locationAvailable = properties.getBoolean(LOCATION, DEFAULT_LOCATION)
-                        callbacks.forEach { it.onFlagLocationChanged(locationAvailable) }
-                    }
-
-                    if (properties.keyset.contains(MEDIA_PROJECTION)) {
-                        mediaProjectionAvailable =
-                                properties.getBoolean(MEDIA_PROJECTION, DEFAULT_MEDIA_PROJECTION)
-                        callbacks.forEach {
-                            it.onFlagMediaProjectionChanged(mediaProjectionAvailable)
-                        }
-                    }
-                }
-            }
-
-    init {
-        dumpManager.registerDumpable(TAG, this)
-        deviceConfigProxy.addOnPropertiesChangedListener(
-                DeviceConfig.NAMESPACE_PRIVACY,
-                uiExecutor,
-                devicePropertiesChangedListener)
-    }
-
     private fun isMicCameraEnabled(): Boolean {
-        return deviceConfigProxy.getBoolean(DeviceConfig.NAMESPACE_PRIVACY,
-                MIC_CAMERA, DEFAULT_MIC_CAMERA)
+        return DEFAULT_MIC_CAMERA
     }
 
     private fun isLocationEnabled(): Boolean {
-        return deviceConfigProxy.getBoolean(DeviceConfig.NAMESPACE_PRIVACY,
-                LOCATION, DEFAULT_LOCATION)
+        return DEFAULT_LOCATION
     }
 
     private fun isMediaProjectionEnabled(): Boolean {
-        return deviceConfigProxy.getBoolean(DeviceConfig.NAMESPACE_PRIVACY,
-                MEDIA_PROJECTION, DEFAULT_MEDIA_PROJECTION)
+        return DEFAULT_MEDIA_PROJECTION
     }
 
     fun addCallback(callback: Callback) {
