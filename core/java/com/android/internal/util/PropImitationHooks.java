@@ -59,7 +59,7 @@ public class PropImitationHooks {
             "com.google.android.gms/.auth.uiflows.minutemaid.MinuteMaidActivity");
 
     private static volatile String sProcessName;
-    private static volatile boolean sIsGms, sIsFinsky, sIsPhotos;
+    private static volatile boolean sIsGms, sIsFinsky;
 
     public static void setProps(Context context) {
         final String packageName = context.getPackageName();
