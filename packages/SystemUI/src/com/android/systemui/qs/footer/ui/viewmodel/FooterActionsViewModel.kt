@@ -23,6 +23,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.android.settingslib.Utils
+import com.android.systemui.Dependency
 import com.android.systemui.R
 import com.android.systemui.animation.Expandable
 import com.android.systemui.common.shared.model.ContentDescription
@@ -35,6 +36,7 @@ import com.android.systemui.plugins.FalsingManager
 import com.android.systemui.qs.dagger.QSFlagsModule.PM_LITE_ENABLED
 import com.android.systemui.qs.footer.data.model.UserSwitcherStatusModel
 import com.android.systemui.qs.footer.domain.interactor.FooterActionsInteractor
+import com.android.systemui.statusbar.policy.KeyguardStateController
 import com.android.systemui.util.icuMessageFormat
 import javax.inject.Inject
 import javax.inject.Named
@@ -255,6 +257,10 @@ class FooterActionsViewModel(
     }
 
     private fun onPowerButtonClicked(expandable: Expandable) {
+        val mKeyguard = Dependency.get(KeyguardStateController::class.java)
+        if (mKeyguard.isShowing() && mKeyguard.isMethodSecure()) {
+            return
+        }
         if (falsingManager.isFalseTap(FalsingManager.LOW_PENALTY)) {
             return
         }
