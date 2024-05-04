@@ -47,6 +47,7 @@ import androidx.annotation.Nullable;
 import com.android.internal.display.BrightnessSynchronizer;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
+import com.android.internal.util.android.VibrationUtils;
 import com.android.settingslib.RestrictedLockUtilsInternal;
 import com.android.systemui.dagger.qualifiers.Background;
 import com.android.systemui.dagger.qualifiers.Main;
@@ -378,6 +379,7 @@ public class BrightnessController implements ToggleSlider.Listener, MirroredBrig
         Settings.System.putIntForUser(mContext.getContentResolver(),
                 Settings.System.SCREEN_BRIGHTNESS_MODE, mode,
                 mUserTracker.getUserId());
+        VibrationUtils.triggerVibration(mContext, 3);
     }
 
     public void checkRestrictionAndSetEnabled() {
