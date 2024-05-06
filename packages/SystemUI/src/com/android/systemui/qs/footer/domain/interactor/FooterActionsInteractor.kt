@@ -22,6 +22,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.UserHandle
+import android.os.VibrationEffect
 import android.provider.Settings
 import com.android.internal.jank.InteractionJankMonitor
 import com.android.internal.logging.MetricsLogger
@@ -41,6 +42,7 @@ import com.android.systemui.qs.footer.data.repository.ForegroundServicesReposito
 import com.android.systemui.qs.footer.data.repository.UserSwitcherRepository
 import com.android.systemui.qs.footer.domain.model.SecurityButtonConfig
 import com.android.systemui.security.data.repository.SecurityRepository
+import com.android.systemui.statusbar.VibratorHelper
 import com.android.systemui.statusbar.policy.DeviceProvisionedController
 import com.android.systemui.user.domain.interactor.UserInteractor
 import javax.inject.Inject
@@ -103,6 +105,7 @@ constructor(
     private val qsSecurityFooterUtils: QSSecurityFooterUtils,
     private val fgsManagerController: FgsManagerController,
     private val userInteractor: UserInteractor,
+    private val vibrator: VibratorHelper,
     securityRepository: SecurityRepository,
     foregroundServicesRepository: ForegroundServicesRepository,
     userSwitcherRepository: UserSwitcherRepository,
@@ -168,6 +171,7 @@ constructor(
         }
 
         metricsLogger.action(MetricsProto.MetricsEvent.ACTION_QS_EXPANDED_SETTINGS_LAUNCH)
+        if (vibrator != null) vibrator.vibrate(VibrationEffect.EFFECT_HEAVY_CLICK)
         activityStarter.startActivity(
             Intent(Settings.ACTION_SETTINGS),
             true /* dismissShade */,
