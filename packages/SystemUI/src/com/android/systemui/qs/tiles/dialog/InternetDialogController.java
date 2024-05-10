@@ -411,6 +411,9 @@ public class InternetDialogController implements AccessPointController.AccessPoi
         } else {
             notifyDualDataEnabledStateChanged();
         }
+
+        if (!isWifiEnabled())
+            setWifiEnabled(true);
     }
 
     void onStop() {
