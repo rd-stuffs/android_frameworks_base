@@ -237,6 +237,8 @@ import com.android.systemui.util.Utils;
 import com.android.systemui.util.time.SystemClock;
 import com.android.wm.shell.animation.FlingAnimationUtils;
 
+import com.android.internal.util.android.VibrationUtils;
+
 import com.android.systemui.aospa.NotificationLightsView;
 
 import kotlin.Unit;
@@ -2830,16 +2832,7 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
         }
 
         if (!mStatusBarStateController.isDozing()) {
-            if (mFeatureFlags.isEnabled(ONE_WAY_HAPTICS_API_MIGRATION)) {
-                mVibratorHelper.performHapticFeedback(mView, HapticFeedbackConstants.REJECT);
-            } else {
-                mVibratorHelper.vibrate(
-                        Process.myUid(),
-                        mView.getContext().getPackageName(),
-                        ADDITIONAL_TAP_REQUIRED_VIBRATION_EFFECT,
-                        "falsing-additional-tap-required",
-                        TOUCH_VIBRATION_ATTRIBUTES);
-            }
+            mVibratorHelper.performHapticFeedback(mView, HapticFeedbackConstants.REJECT);
         }
     }
 
@@ -3770,14 +3763,7 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
     private void maybeVibrateOnOpening(boolean openingWithTouch) {
         if (mVibrateOnOpening && mBarState != KEYGUARD && mBarState != SHADE_LOCKED) {
             if (!openingWithTouch || !mHasVibratedOnOpen) {
-                if (mFeatureFlags.isEnabled(ONE_WAY_HAPTICS_API_MIGRATION)) {
-                    mVibratorHelper.performHapticFeedback(
-                            mView,
-                            HapticFeedbackConstants.GESTURE_START
-                    );
-                } else {
-                    mVibratorHelper.vibrate(VibrationEffect.EFFECT_TICK);
-                }
+                VibrationUtils.triggerVibration(mView.getContext(), 2);
                 mHasVibratedOnOpen = true;
                 mShadeLog.v("Vibrating on opening, mHasVibratedOnOpen=true");
             }
