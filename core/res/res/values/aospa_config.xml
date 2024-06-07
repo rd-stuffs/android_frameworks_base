@@ -165,4 +165,7 @@
     <!-- Device model (Build.MODEL) to spoof for netflix, if not empty -->
     <string name="config_netflixSpoofModel" translatable="false"></string>
 
+    <!-- Name of a font family to use as clock font. For theming purpose. -->
+    <string name="config_clockFontFamilyMedium" translatable="false">sans-serif-clock</string>
+
 </resources>
