@@ -122,6 +122,7 @@
     <alias name="sans-serif-light" to="sans-serif" weight="300" />
     <alias name="sans-serif-medium" to="sans-serif" weight="500" />
     <alias name="sans-serif-black" to="sans-serif" weight="900" />
+    <alias name="sans-serif-clock" to="sans-serif" weight="500" />
     <alias name="arial" to="sans-serif" />
     <alias name="helvetica" to="sans-serif" />
     <alias name="tahoma" to="sans-serif" />

@@ -151,6 +151,8 @@
     <string name="config_lightFontFamily" translatable="false">sans-serif-light</string>
     <!-- Name of a font family to use as regular font. For theming purpose. -->
     <string name="config_regularFontFamily" translatable="false">sans-serif-regular</string>
+    <!-- Name of a font family to use as clock font. For theming purpose. -->
+    <string name="config_clockFontFamilyMedium" translatable="false">sans-serif-clock</string>
 
     <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveBatteryLed">false</bool>

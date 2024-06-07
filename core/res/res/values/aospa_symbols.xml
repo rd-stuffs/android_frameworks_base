@@ -109,6 +109,7 @@
     <!-- Light / Regular style fonts -->
     <java-symbol type="string" name="config_lightFontFamily" />
     <java-symbol type="string" name="config_regularFontFamily" />
+    <java-symbol type="string" name="config_clockFontFamilyMedium" />
 
     <!-- Leds -->
     <java-symbol type="bool" name="config_intrusiveBatteryLed" />
