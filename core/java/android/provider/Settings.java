@@ -20631,7 +20631,8 @@ public final class Settings {
     public static boolean shouldHideDevStatus(@NonNull String packageName, @NonNull String name) {
         return (name.equals(Settings.Global.ADB_ENABLED) ||
                name.equals(Settings.Global.ADB_WIFI_ENABLED) ||
-               name.equals(Settings.Global.DEVELOPMENT_SETTINGS_ENABLED)) && !isCallerSystemApp(packageName);
+               name.equals(Settings.Global.DEVELOPMENT_SETTINGS_ENABLED)) && !isCallerSystemApp(packageName)
+               && !packageName.contains("xiaoji.xtouch");
     }
 
     private static boolean isCallerSystemApp(@NonNull String packageName) {
