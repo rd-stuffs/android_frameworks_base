@@ -308,6 +308,7 @@ public class NotificationStackScrollLayoutController {
     };
 
     private NotifStats mNotifStats = NotifStats.getEmpty();
+    private float mMaxAlphaForExpansion = 1.0f;
 
     private void updateResources() {
         mNotificationStackSizeCalculator.updateResources();
@@ -1173,7 +1174,8 @@ public class NotificationStackScrollLayoutController {
 
     public void setAlpha(float alpha) {
         if (mView != null) {
-            mView.setAlpha(alpha);
+            mMaxAlphaForExpansion = alpha < 0.95f ? 0f : alpha;
+            mView.setAlpha(mMaxAlphaForExpansion);
         }
     }
 
