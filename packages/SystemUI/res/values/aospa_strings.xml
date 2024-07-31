@@ -10,10 +10,10 @@
 
     <!-- Status bar -->
     <string name="status_bar_icons_title">Status bar icons</string>
-    <string name="status_bar_hd_calling">HD calling (VoLTE/VoNR)</string>
+    <string name="status_bar_hd_calling">VoLTE</string>
     <string name="status_bar_nfc">NFC</string>
     <string name="status_bar_roaming">Roaming indicator</string>
-    <string name="status_bar_vowifi">Wi-Fi calling (VoWiFi)</string>
+    <string name="status_bar_vowifi">VoWiFi</string>
     <string name="status_bar_wifi_standard">Wi-Fi standard number</string>
 
     <!-- Label for UI element which allows deleting the screenshot [CHAR LIMIT=30] -->
