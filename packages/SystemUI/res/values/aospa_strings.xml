@@ -53,10 +53,10 @@
     <string name="screenrecord_delete_description">Screen recording deleted</string>
 
     <!-- Name of the HD calling status bar icon. -->
-    <string name="status_bar_hd_calling">HD calling (VoLTE/VoNR)</string>
+    <string name="status_bar_hd_calling">VoLTE</string>
 
     <!-- Name of the VoWiFi status bar icon. -->
-    <string name="status_bar_vowifi">Wi-Fi calling (VoWiFi)</string>
+    <string name="status_bar_vowifi">VoWiFi</string>
 
     <!-- Name of the nfc status bar icon. -->
     <string name="status_bar_nfc">NFC</string>
