@@ -54,6 +54,7 @@ import com.android.internal.jank.InteractionJankMonitor;
 import com.android.internal.logging.InstanceId;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.UiEventLogger;
+import com.android.internal.util.android.VibrationUtils;
 import com.android.settingslib.RestrictedLockUtils;
 import com.android.settingslib.RestrictedLockUtilsInternal;
 import com.android.systemui.Dumpable;
@@ -306,6 +307,7 @@ public abstract class QSTileImpl<TState extends State> implements QSTile, Lifecy
         if (!mFalsingManager.isFalseTap(FalsingManager.LOW_PENALTY)) {
             mHandler.obtainMessage(H.CLICK, eventId, 0, view).sendToTarget();
         }
+        VibrationUtils.triggerVibration(mContext, 3);
     }
 
     public void secondaryClick(@Nullable View view) {
@@ -333,6 +335,7 @@ public abstract class QSTileImpl<TState extends State> implements QSTile, Lifecy
         if (!mFalsingManager.isFalseLongTap(FalsingManager.LOW_PENALTY)) {
             mHandler.obtainMessage(H.LONG_CLICK, eventId, 0, view).sendToTarget();
         }
+        VibrationUtils.triggerVibration(mContext, 5);
     }
 
     public LogMaker populate(LogMaker logMaker) {
@@ -423,6 +426,7 @@ public abstract class QSTileImpl<TState extends State> implements QSTile, Lifecy
      * @param view The view from which the opening window will be animated.
      */
     protected void handleLongClick(@Nullable View view) {
+        if (getLongClickIntent() == null) return;
         ActivityLaunchAnimator.Controller animationController =
                 view != null ? ActivityLaunchAnimator.Controller.fromView(view,
                         InteractionJankMonitor.CUJ_SHADE_APP_LAUNCH_FROM_QS_TILE) : null;
