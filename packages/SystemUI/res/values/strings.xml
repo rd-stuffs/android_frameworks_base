@@ -1161,19 +1161,19 @@
     <string name="interruption_level_alarms_twoline">Alarms\nonly</string>
 
     <!-- Indication on the keyguard that is shown when the device is wirelessly charging. [CHAR LIMIT=80]-->
-    <string name="keyguard_indication_charging_time_wireless"><xliff:g id="percentage" example="20%">%2$s</xliff:g> • Charging wirelessly • Full in <xliff:g id="charging_time_left" example="4 hr, 2 min">%1$s</xliff:g></string>
+    <string name="keyguard_indication_charging_time_wireless"><xliff:g id="percentage" example="20%">%2$s</xliff:g> • Charging wirelessly\nFull in <xliff:g id="charging_time_left" example="4 hr, 2 min">%1$s</xliff:g></string>
 
     <!-- Indication on the keyguard that is shown when the device is charging. [CHAR LIMIT=50]-->
-    <string name="keyguard_indication_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Charging • Full in <xliff:g id="charging_time_left" example="4 hr, 2 min">%1$s</xliff:g></string>
+    <string name="keyguard_indication_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Charging\nFull in <xliff:g id="charging_time_left" example="4 hr, 2 min">%1$s</xliff:g></string>
 
     <!-- Indication on the keyguard that is shown when the device is charging rapidly. Should match keyguard_plugged_in_charging_fast [CHAR LIMIT=50]-->
-    <string name="keyguard_indication_charging_time_fast"><xliff:g id="percentage">%2$s</xliff:g> • Charging rapidly • Full in <xliff:g id="charging_time_left" example="4 hr, 2 min">%1$s</xliff:g></string>
+    <string name="keyguard_indication_charging_time_fast"><xliff:g id="percentage">%2$s</xliff:g> • Charging rapidly\nFull in <xliff:g id="charging_time_left" example="4 hr, 2 min">%1$s</xliff:g></string>
 
     <!-- Indication on the keyguard that is shown when the device is charging slowly. Should match keyguard_plugged_in_charging_slowly [CHAR LIMIT=50]-->
-    <string name="keyguard_indication_charging_time_slowly"><xliff:g id="percentage">%2$s</xliff:g> • Charging slowly • Full in <xliff:g id="charging_time_left" example="4 hr, 2 min">%1$s</xliff:g></string>
+    <string name="keyguard_indication_charging_time_slowly"><xliff:g id="percentage">%2$s</xliff:g> • Charging slowly\nFull in <xliff:g id="charging_time_left" example="4 hr, 2 min">%1$s</xliff:g></string>
 
     <!-- Indication on the keyguard that is shown when the device is dock charging. [CHAR LIMIT=80]-->
-    <string name="keyguard_indication_charging_time_dock"><xliff:g id="percentage" example="20%">%2$s</xliff:g> • Charging • Full in <xliff:g id="charging_time_left" example="4 hr, 2 min">%1$s</xliff:g></string>
+    <string name="keyguard_indication_charging_time_dock"><xliff:g id="percentage" example="20%">%2$s</xliff:g> • Charging\nFull in <xliff:g id="charging_time_left" example="4 hr, 2 min">%1$s</xliff:g></string>
 
     <!-- Label for accessibility action that shows widgets on lock screen on click. [CHAR LIMIT=NONE] -->
     <string name="accessibility_action_open_communal_hub">Widgets on lock screen</string>
