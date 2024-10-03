@@ -1260,15 +1260,6 @@ public class MediaControlPanel {
                         mButtonClicked = true;
 
                         action.run();
-
-                        mMultiRippleController.play(createTouchRippleAnimation(button));
-
-                        if (icon instanceof Animatable) {
-                            ((Animatable) icon).start();
-                        }
-                        if (bgDrawable instanceof Animatable) {
-                            ((Animatable) bgDrawable).start();
-                        }
                     }
                 });
             }
@@ -1300,7 +1291,7 @@ public class MediaControlPanel {
     }
 
     private boolean shouldPlayTurbulenceNoise() {
-        return mButtonClicked && !mWasPlaying && isPlaying();
+        return false;
     }
 
     private TurbulenceNoiseAnimationConfig createTurbulenceNoiseConfig() {
