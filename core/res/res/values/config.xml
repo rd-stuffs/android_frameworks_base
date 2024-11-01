@@ -127,6 +127,8 @@
          is disableable for products for which it is irrelevant. -->
     <bool name="config_useVolumeKeySounds">true</bool>
 
+    <integer name="config_maxBitmapSizePx">480</integer>
+
     <!-- The attenuation in dB applied to the sound effects played
          through AudioManager.playSoundEffect() when no volume is specified. -->
     <integer name="config_soundEffectVolumeDb">-6</integer>
