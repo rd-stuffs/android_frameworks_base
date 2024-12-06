@@ -894,7 +894,7 @@
     <dimen name="keyguard_settings_popup_menu_padding">12dp</dimen>
 
     <!-- Amount the button should shake when it's not long-pressed for long enough. -->
-    <dimen name="keyguard_affordance_shake_amplitude">8dp</dimen>
+    <dimen name="keyguard_affordance_shake_amplitude">2dp</dimen>
 
     <dimen name="keyguard_affordance_horizontal_offset">34dp</dimen>
     <dimen name="keyguard_affordance_vertical_offset">72dp</dimen>
