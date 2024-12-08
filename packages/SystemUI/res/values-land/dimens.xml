@@ -95,4 +95,7 @@
 
     <!-- Keyboard shortcuts helper -->
     <dimen name="ksh_container_horizontal_margin">48dp</dimen>
+
+    <!-- The padding on the top of the statusbar (usually 0) -->
+    <dimen name="status_bar_padding_top">0dp</dimen>
 </resources>
