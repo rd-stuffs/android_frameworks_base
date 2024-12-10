@@ -569,7 +569,7 @@ public class DisplayPolicy {
                 public void onFling(int duration) {
                     if (mService.mPowerManagerInternal != null) {
                         mService.mPowerManagerInternal.setPowerBoost(
-                                Boost.INTERACTION, duration);
+                                Boost.INTERACTION, duration + 500);
                     }
                 }
 
@@ -610,7 +610,7 @@ public class DisplayPolicy {
                             boolean isGame = isTopAppGame(currentPackage, mPerfBoostFling);
                             if (!isGame) {
                                 mPerfBoostFling.perfHint(BoostFramework.VENDOR_HINT_SCROLL_BOOST,
-                                    currentPackage, duration + 160, BoostFramework.Scroll.VERTICAL);
+                                    currentPackage, duration + 500, BoostFramework.Scroll.VERTICAL);
                                 mIsPerfBoostFlingAcquired = true;
                            }
                         }
@@ -635,7 +635,7 @@ public class DisplayPolicy {
                             boolean isGame = isTopAppGame(currentPackage, mPerfBoostFling);
                             if (!isGame) {
                                 mPerfBoostFling.perfHint(BoostFramework.VENDOR_HINT_SCROLL_BOOST,
-                                    currentPackage, duration + 160, BoostFramework.Scroll.HORIZONTAL);
+                                    currentPackage, duration + 500, BoostFramework.Scroll.HORIZONTAL);
                                 mIsPerfBoostFlingAcquired = true;
                             }
                         }
