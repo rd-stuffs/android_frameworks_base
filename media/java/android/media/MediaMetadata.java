@@ -995,7 +995,7 @@ public final class MediaMetadata implements Parcelable {
             }
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(bmp, scaledWidth, scaledHeight, true);
             java.io.ByteArrayOutputStream outputStream = new java.io.ByteArrayOutputStream();
-            scaledBitmap.compress(Bitmap.CompressFormat.WEBP_LOSSLESS, 90, outputStream);
+            scaledBitmap.compress(Bitmap.CompressFormat.WEBP_LOSSY, 90, outputStream);
             byte[] compressedData = outputStream.toByteArray();
             Bitmap compressedBitmap = BitmapFactory.decodeByteArray(compressedData, 0, compressedData.length);
             scaledBitmap.recycle();
