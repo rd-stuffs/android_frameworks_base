@@ -148,29 +148,7 @@ public class FloatingRotationButton implements RotationButton {
 
     @Override
     public boolean show() {
-        if (mIsShowing) {
-            return false;
-        }
-
-        mIsShowing = true;
-
-        final LayoutParams layoutParams = adjustViewPositionAndCreateLayoutParams();
-        mWindowManager.addView(mKeyButtonContainer, layoutParams);
-
-        if (mAnimatedDrawable != null) {
-            mAnimatedDrawable.reset();
-            mAnimatedDrawable.start();
-        }
-
-        // Notify about visibility only after first traversal so we can properly calculate
-        // the touch region for the button
-        OneShotPreDrawListener.add(mKeyButtonView, () -> {
-            if (mIsShowing && mUpdatesCallback != null) {
-                mUpdatesCallback.onVisibilityChanged(true);
-            }
-        });
-
-        return true;
+        return false;
     }
 
     @Override
