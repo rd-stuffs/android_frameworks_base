@@ -126,7 +126,7 @@ object Flags {
     /** Whether the long-press gesture to open wallpaper picker is enabled. */
     // TODO(b/266242192): Tracking Bug
     @JvmField
-    val LOCK_SCREEN_LONG_PRESS_ENABLED = releasedFlag("lock_screen_long_press_enabled")
+    val LOCK_SCREEN_LONG_PRESS_ENABLED = unreleasedFlag("lock_screen_long_press_enabled")
 
     /** Inflate and bind views upon emitting a blueprint value . */
     // TODO(b/297365780): Tracking Bug
