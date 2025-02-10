@@ -71,7 +71,6 @@ import android.os.Handler;
 import android.os.Trace;
 import android.os.UserManager;
 import android.provider.Settings;
-import android.util.BoostFramework;
 import android.util.IndentingPrintWriter;
 import android.util.Log;
 import android.util.MathUtils;
@@ -633,12 +632,6 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
     private int mGoneToDreamingTransitionTranslationY;
     private boolean mForceFlingAnimationForTest = false;
     private final SplitShadeStateController mSplitShadeStateController;
-
-    /**
-     * For PanelView fling perflock call
-     */
-    private BoostFramework mPerf = null;
-
     private final Runnable mFlingCollapseRunnable = () -> fling(0, false /* expand */,
             mNextCollapseSpeedUpFactor, false /* expandBecauseOfFalsing */);
     private final Runnable mAnimateKeyguardBottomAreaInvisibleEndRunnable =
@@ -1011,7 +1004,6 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
                 });
         mAlternateBouncerInteractor = alternateBouncerInteractor;
         dumpManager.registerDumpable(this);
-        mPerf = new BoostFramework();
     }
 
     private void unlockAnimationFinished() {
@@ -2229,10 +2221,6 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
                 }
             });
         }
-        if (mPerf != null) {
-            String currentPackage = mView.getContext().getPackageName();
-            mPerf.perfHint(BoostFramework.VENDOR_HINT_SCROLL_BOOST, currentPackage, -1, BoostFramework.Scroll.PANEL_VIEW);
-        }
         animator.addListener(new AnimatorListenerAdapter() {
             private boolean mCancelled;
 
@@ -2245,17 +2233,11 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
 
             @Override
             public void onAnimationCancel(Animator animation) {
-                if (mPerf != null) {
-                    mPerf.perfLockRelease();
-                }
                 mCancelled = true;
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (mPerf != null) {
-                    mPerf.perfLockRelease();
-                }
                 if (shouldSpringBack && !mCancelled) {
                     // After the shade is flung open to an overscrolled state, spring back
                     // the shade by reducing section padding to 0.
