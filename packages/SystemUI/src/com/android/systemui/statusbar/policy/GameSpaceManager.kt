@@ -50,7 +50,10 @@ class GameSpaceManager @Inject constructor(
 
     private val taskStackListener = object : TaskStackListener() {
         override fun onTaskStackChanged() {
-            handler.sendEmptyMessage(MSG_UPDATE_FOREGROUND_APP)
+            updateForegroundApp()
+        }
+        override fun onTaskMovedToFront(taskId: Int) {
+            updateForegroundApp()
         }
 
         override fun onTaskRemoved(taskId: Int) {
@@ -97,6 +100,11 @@ class GameSpaceManager @Inject constructor(
             }
         } catch (e: RemoteException) {
         }
+    }
+
+    private fun updateForegroundApp() {
+        handler.removeMessages(MSG_UPDATE_FOREGROUND_APP)
+        handler.sendEmptyMessageDelayed(MSG_UPDATE_FOREGROUND_APP, 150)
     }
 
     private fun checkForegroundApp() {
